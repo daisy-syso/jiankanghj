@@ -5,7 +5,7 @@ require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
 set :domain, '61.153.100.122'
 set :deploy_to, '/home/ubuntu/jiankanghj'
-set :repository, 'https://github.com/daisy-syso/daisy.git'
+set :repository, 'git@github.com:daisy-syso/jiankanghj.git'
 set :branch, 'master'
 set :keep_releases, 5
 set :rails_env, 'production'
@@ -38,6 +38,9 @@ task :setup => :environment do
 
   queue! %[mkdir -p "#{deploy_to}/#{shared_path}/log"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/log"]
+
+  queue! %(mkdir -p "#{deploy_to}/#{shared_path}/config")
+  queue! %(chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/config")
 
   queue! %(touch "#{deploy_to}/#{shared_path}/config/database.yml")
   queue  %(echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/database.yml'.")
