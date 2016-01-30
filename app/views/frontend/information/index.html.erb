@@ -1,0 +1,141 @@
+<div class="news-index">
+  <ul class="information-types list-unstyled">
+    <% @information_types.each_with_index do |type, index| %>
+      <% if index % 6 == 0%>
+        <br>
+      <% end %>
+      <li><a href="#<%= type.name %>"> <%= type.name %> </a></li>
+    <% end %>
+  </ul>
+
+  <% unless @infors.empty? %>
+    <div class="dynamic">
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+          <% @infors.each_with_index do |infor, index| %>
+            <div class="item <%= "active" if index.eql?(0) %>">
+              <a href="<%= frontend_information_path(infor.id) %>">
+                <img src="<%= infor.image_url %>" style="width:100%; height: 200px;" />
+                <%= infor.name %>
+              </a>
+            </div>
+          <% end %>
+        </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+  <% else %>
+    <p>暂无动态</p>
+  <% end %>
+
+  <% @information_lists.each do |information| %>
+    <div id="<%= information[:name] %>" class="infor-module">
+      <div class="infor-module-header">
+        <h3><%= information[:name]%></h3>
+        <ul class="infor-sub-types list-unstyled">
+          <% information[:sub_types].each do |sub_type| %>
+            <li class="sub-type" data-name="<%= sub_type.name %>"> <%= sub_type.name %></li>
+          <% end %>
+          <% if information[:video_category].present? %>
+            <a href="<%= frontend_video_category_videos_path(information[:video_category].id) %>">视频</a>
+          <% end %>
+        </ul>
+      </div>
+      <br>
+
+      <ul class="information-items list-unstyled">
+        <% information[:informations].each_with_index do |inf, index| %>
+          <%# condition = (index == 0 || index == 1) || ((index == 7 || index == 6) && (information[:name] == '头条' || information[:name] == '天天护理')) %>
+          <% condition = (index == 0 || index == 1) %>
+          <li class="information-item<%= '-with-image' if condition  %>">
+            <a href="<%= frontend_information_path(inf.id) %>">
+              <% if condition %>
+                <img src="<%= inf.image_url %>" class="information-image"/>
+                <p class="information-name"><%= inf.name %></p>
+              <% else %>
+                <%= inf.name %>
+              <% end %>
+            </a>
+          </li>
+
+          <% if index == 5 && information[:video_category].present? %>
+            <ul class="information-items list-unstyled video-items">
+              <% Video.where(video_category_id: information[:video_category].id).order("created_at desc").limit(4).each do |video| %>
+                <li class="information-item-with-image video-item">
+                  <a href="<%= frontend_video_category_video_path(information[:video_category].id, video.id) %>">
+                    <img src="<%= video.pic_url %>"  class="information-image" />
+                    <%= image_tag("video-flag.jpg", class: "video-flag") %>
+                    <p class="information-name"><%= video.album_name %></p>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+
+        <% end %>
+      </ul>
+      <div class="load-more">
+        <a data-current-type="<%= information[:name] %>" data-current-page="1" href="javascript:;">查看更多</a>
+      </div>
+      <br>
+    </div>
+  <% end %>
+
+  <h3>精确查询</h3>
+  <ul class="precise-queries list-unstyled">
+    <% @precise_queries.each do |query| %>
+      <li class="precise-query-item">
+        <a href="http://www.yiliaohj.com/mobiles/index.html<%= query.link %>">
+          <img src="http://www.yiliaohj.com/mobiles/<%=query.icon%>">
+          <p class="query-title"><%= query.title %></p>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+
+  <h3>健康医疗APP大全</h3>
+  <ul class="hot-apps list-unstyled">
+    <% @apps.each do |app| %>
+      <li class="hot-app">
+        <img src="<%= app.image_url %>">
+        <p class="overflow-text app-name"><%= app.name %></p>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2>热门图片</h2>
+  <ul class="information-hotest-images list-unstyled">
+    <% @information_hotest_images.each do |image| %>
+      <li class="information-hotest-image-item">
+        <img src="<%= image.image_url %>">
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="cooperation last-section">
+    <div class="cooperation-bar">
+      <a class="cooperation" href="#/cooperation">合作-赞助-联系方式</a>
+    </div>
+    <p class="disclaimer">【免责声明：我们尊重原创，主要目的在于分享信息。版权原作者所有，如有侵犯您的权益请及时告知我们，我们将在24小时之内删除。】</p>
+  </div>
+</div>
+
+
+<script type="text/template" id="information_item">
+  {{ _.each(infors, function(item, key, arr) { }}
+    <li class="information-item">
+      <a href="/information/{{= item.id }}">
+        {{= item.name }}
+      </a>
+    </li>
+  {{ }); }}
+</script>

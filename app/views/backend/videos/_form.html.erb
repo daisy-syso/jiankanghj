@@ -1,0 +1,20 @@
+<%= simple_form_for(@video) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :album_name %>
+    <%= f.input :pic_url %>
+    <%= f.input :play_url %>
+    <%= f.input :tv_id %>
+    <%= f.input :create_time %>
+    <%= f.input :time_length %>
+    <%= f.input :sub_title %>
+    <%= f.input :html5_url %>
+    <%= f.input :html5_play_url %>
+    <%= f.input :video_category %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

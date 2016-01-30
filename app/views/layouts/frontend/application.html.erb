@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>今日健康头条</title>
+    <%= stylesheet_link_tag "frontend/application" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="qc:admins" content="1303345235621163167026375" />
+    <script src="http://api.map.baidu.com/api?v=1.5&ak=d3Yn1p4buKQifBg5mcBXqUOS" type="text/javascript"></script>
+  </head>
+  <body>
+    <%= render "layouts/frontend/header" %>
+    <div class="container-fluid content-wrapper">
+      <%= yield %>
+    </div>
+    <%= render "layouts/frontend/footer" %>
+  </body>
+</html>

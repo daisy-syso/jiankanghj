@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Album name:</strong>
+  <%= @video.album_name %>
+</p>
+
+<p>
+  <strong>Pic url:</strong>
+  <%= @video.pic_url %>
+</p>
+
+<p>
+  <strong>Play url:</strong>
+  <%= @video.play_url %>
+</p>
+
+<p>
+  <strong>Tv:</strong>
+  <%= @video.tv_id %>
+</p>
+
+<p>
+  <strong>Create time:</strong>
+  <%= @video.create_time %>
+</p>
+
+<p>
+  <strong>Time length:</strong>
+  <%= @video.time_length %>
+</p>
+
+<p>
+  <strong>Sub title:</strong>
+  <%= @video.sub_title %>
+</p>
+
+<p>
+  <strong>Html5 url:</strong>
+  <%= @video.html5_url %>
+</p>
+
+<p>
+  <strong>Html5 play url:</strong>
+  <%= @video.html5_play_url %>
+</p>
+
+<p>
+  <strong>Video category:</strong>
+  <%= @video.video_category %>
+</p>
+
+<%= link_to 'Edit', edit_video_path(@video) %> |
+<%= link_to 'Back', videos_path %>

@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Videos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Album name</th>
+      <th>Pic url</th>
+      <th>Play url</th>
+      <th>Tv</th>
+      <th>Create time</th>
+      <th>Time length</th>
+      <th>Sub title</th>
+      <th>Html5 url</th>
+      <th>Html5 play url</th>
+      <th>Video category</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @videos.each do |video| %>
+      <tr>
+        <td><%= video.album_name %></td>
+        <td><%= video.pic_url %></td>
+        <td><%= video.play_url %></td>
+        <td><%= video.tv_id %></td>
+        <td><%= video.create_time %></td>
+        <td><%= video.time_length %></td>
+        <td><%= video.sub_title %></td>
+        <td><%= video.html5_url %></td>
+        <td><%= video.html5_play_url %></td>
+        <td><%= video.video_category %></td>
+        <td><%= link_to 'Show', video %></td>
+        <td><%= link_to 'Edit', edit_video_path(video) %></td>
+        <td><%= link_to 'Destroy', video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Video', new_video_path %>

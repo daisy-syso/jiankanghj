@@ -1,0 +1,35 @@
+.videos{
+  margin-top: 70px;
+  .category-name{
+    margin-left: 15px;
+  }
+  .video{
+    width: 45%;
+    margin: 2%;
+    .video-content{
+      img {
+        width: 100%;
+        height: 140px;
+      }
+    }
+    // border-bottom: 10px solid #E0D7D7;
+    display: inline-block;
+    .video-detail{
+      margin-left: 10px;
+      .album-name{
+      }
+      .time-about{
+        color: #B7B3B3;
+        .spent-time{
+          margin-right: 10px;
+        }
+        .create-time{
+
+        }
+      }
+    }
+  }
+  .paginate-wrapper{
+    margin-bottom: 100px;
+  }
+}

@@ -1,0 +1,56 @@
+<div class="container news-show">
+  <div class="information-image"><img src="<%= @information.image_url %>"></div>
+  <h3><%= @information.name %></h3>
+  <div><%= @information.created_at %>&nbsp;&nbsp;&nbsp;<%= @information.source %></div>
+  <hr>
+  <div class="information-content"><%= @information.content.html_safe %></div>
+
+  <br>
+  <h3>猜你喜欢</h3>
+  <ul class="guess-list list-unstyled">
+    <% @guess_infos.each do |info|%>
+    <li class="guess-item">
+      <a href="<%= frontend_information_path(info.id) %>">
+        <img src="<%= info.image_url %>">
+        <p class="overflow-tex"><%= info.name %></p>
+      </a>
+    </li>
+    <% end %>
+  </ul>
+
+  <br>
+  <h3>热门评论</h3>
+  <ul class="comments list-unstyled">
+    <% @comments.each do |comment| %>
+      <li class="comment-item">
+        <h5><%= comment.alias_name %>:</h5>
+        <p><%= comment.content %></p>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= form_tag({:controller => 'information', :action => 'comment'}, :class => 'form-ajax') do -%>
+    <%= text_area_tag :content -%>
+    <%= submit_tag('提交', class: "btn btn-primary pull-right") -%>
+  <% end %>
+  <br>
+  <h3>推荐阅读</h3>
+  <ul class="information-items list-unstyled">
+    <% @recommended_infos.each do |info|%>
+      <li class="information-item">
+        <a href="<%= frontend_information_path(info.id) %>">
+          <%= info.name %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+
+  <h3>热门图片</h3>
+  <ul class="information-hotest-images list-unstyled last-section">
+    <% @hot_images.each do |image| %>
+      <li class="information-hotest-image-item">
+        <img src="<%= image.image_url %>">
+      </li>
+    <% end %>
+  </ul>
+</div>

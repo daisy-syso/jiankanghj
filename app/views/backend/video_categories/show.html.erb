@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @video_category.name %>
+</p>
+
+<p>
+  <strong>Iqiyi:</strong>
+  <%= @video_category.iqiyi_id %>
+</p>
+
+<%= link_to 'Edit', edit_video_category_path(@video_category) %> |
+<%= link_to 'Back', video_categories_path %>
