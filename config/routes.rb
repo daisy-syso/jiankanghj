@@ -1,5 +1,27 @@
 Rails.application.routes.draw do
 
+  constraints :subdomain => /^(backend(.*))$/i do
+    namespace :backend, path: '/' do
+      
+      root 'video_categories#index'
+
+      # get '/', to: "video_categories#index"
+      
+      resources :video_categories do
+        resources :videos
+      end
+
+      resources :editors_session do
+        collection do
+          get 'login'
+          get 'logout'
+        end
+      end
+
+      resources :editors
+    end
+  end
+
   constraints :subdomain => /^(www(.*))$/i do
     namespace :frontend, path: '/' do
       resources :information do
@@ -22,7 +44,9 @@ Rails.application.routes.draw do
         end
       end
       
-      get '/', to: "information#index"
+      # get '/', to: "information#index"
+
+      root 'information#index'
 
       get '/users/mine', to: "users#mine"
 
@@ -36,27 +60,7 @@ Rails.application.routes.draw do
     end
   end
 
-  constraints :subdomain => /^(backend(.*))$/i do
-    namespace :backend, path: '/' do
-      
-      root 'video_categories#index'
-
-      # get '/', to: "video_categories#index"
-      
-      resources :video_categories do
-        resources :videos
-      end
-
-      resources :editors_session do
-        collection do
-          get 'login'
-          get 'logout'
-        end
-      end
-
-      resources :editors
-    end
-  end
+  
   
   
 end
