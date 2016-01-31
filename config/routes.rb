@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     end
   end
 
-  constraints :subdomain => /^(backend(.*))$/i do
+  # constraints :subdomain => /^(backend(.*))$/i do
     namespace :backend, path: '/' do
       
       get '/', to: "video_categories#index"
@@ -54,7 +54,7 @@ Rails.application.routes.draw do
 
       resources :editors
     end
-  end
+  # end
   
   
 end
