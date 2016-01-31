@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  constraints :subdomain => /^(backend(.*))$/i do
-    namespace :backend, path: '/backend' do
+  constraints :subdomain => /^(admin(.*))$/i do
+    namespace :backend, path: '/' do
       
       root 'video_categories#index'
 
@@ -21,7 +21,6 @@ Rails.application.routes.draw do
       resources :editors
     end
   end
-
   constraints :subdomain => /^(www(.*))$/i do
     namespace :frontend, path: '/' do
       resources :information do
