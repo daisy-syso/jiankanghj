@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   constraints :subdomain => /^(backend(.*))$/i do
-    namespace :backend, path: '/' do
+    namespace :backend, path: '/backend' do
       
       root 'video_categories#index'
 
