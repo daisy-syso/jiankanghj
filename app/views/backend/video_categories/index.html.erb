@@ -18,8 +18,8 @@
           <td><%= video_category.name %></td>
           <td>
             <%= link_to '视频', backend_video_category_videos_path(video_category), class: "btn btn-info"%>
-            <%= link_to '修改', edit_backend_video_category_path(video_category), class: "btn btn-warning"%>
-            <%= link_to '下架', backend_video_category_path(video_category), method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger" %>
+            <%#= link_to '修改', edit_backend_video_category_path(video_category), class: "btn btn-warning"%>
+            <%#= link_to '下架', backend_video_category_path(video_category), method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger" %>
           </td>
         </tr>
       <% end %>
