@@ -1,13 +1,10 @@
-class VideoCategoriesController < ApplicationController
-  before_action :set_video_category, only: [:show, :edit, :update, :destroy]
+class Backend::VideoCategoriesController < BackendController
+  before_action :check_auth
+  before_action :set_video_category, only: [:edit, :update, :destroy]
 
   # GET /video_categories
   def index
-    @video_categories = VideoCategory.all
-  end
-
-  # GET /video_categories/1
-  def show
+    @video_categories = VideoCategory.all.order("created_at desc").page(params[:page]).per(params[:per])
   end
 
   # GET /video_categories/new

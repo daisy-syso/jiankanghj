@@ -1,54 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Album name:</strong>
-  <%= @video.album_name %>
-</p>
+<strong>名称:</strong>
+<div class="alert alert-success" role="alert"><%= @video.album_name %></div>
 
-<p>
-  <strong>Pic url:</strong>
-  <%= @video.pic_url %>
-</p>
+<strong>图片:</strong>
+<div><img src="<%= @video.pic_url %>"></div>
 
-<p>
-  <strong>Play url:</strong>
-  <%= @video.play_url %>
-</p>
+<br />
 
-<p>
-  <strong>Tv:</strong>
-  <%= @video.tv_id %>
-</p>
+<strong>播放器:</strong>
+<iframe src="<%= @video.swf %>" width="100%" height="280px">
+  
+</iframe>
 
-<p>
-  <strong>Create time:</strong>
-  <%= @video.create_time %>
-</p>
+<strong>创建时间:</strong>
+<div class="alert alert-success" role="alert"><%= @video.create_time.strftime("%F %T") %></div>
 
-<p>
-  <strong>Time length:</strong>
-  <%= @video.time_length %>
-</p>
+<strong>时长:</strong>
+<div class="alert alert-success" role="alert"><%= @video.time_length/60 %>:<%= @video.time_length%60 %></div>
 
-<p>
-  <strong>Sub title:</strong>
-  <%= @video.sub_title %>
-</p>
+<strong>html5_play_url:</strong>
+<div class="alert alert-success" role="alert"><%= @video.html5_play_url %></div>
 
-<p>
-  <strong>Html5 url:</strong>
-  <%= @video.html5_url %>
-</p>
-
-<p>
-  <strong>Html5 play url:</strong>
-  <%= @video.html5_play_url %>
-</p>
-
-<p>
-  <strong>Video category:</strong>
-  <%= @video.video_category %>
-</p>
-
-<%= link_to 'Edit', edit_video_path(@video) %> |
-<%= link_to 'Back', videos_path %>
+<%#= link_to '编辑', edit_backend_video_category_video_path(id: @video.id), class: 'btn btn-default' %>

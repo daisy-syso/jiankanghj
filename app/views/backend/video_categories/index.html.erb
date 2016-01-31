@@ -1,29 +1,29 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Video Categories</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Iqiyi</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @video_categories.each do |video_category| %>
-      <tr>
-        <td><%= video_category.name %></td>
-        <td><%= video_category.iqiyi_id %></td>
-        <td><%= link_to 'Show', video_category %></td>
-        <td><%= link_to 'Edit', edit_video_category_path(video_category) %></td>
-        <td><%= link_to 'Destroy', video_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<div class="row">
+  <p id="notice"><%= notice %></p>
+  <h1>视频分类管理</h1>
+</div>
+<div class="row">
+  <%#= link_to '添加', new_backend_video_category_path, class: "btn btn-info" %>
+  <hr>
+  <table class="table table-striped table-bordered table-hover table-condensed">
+    <thead>
+      <tr class="active">
+        <th>Name</th>
+        <th>操作</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Video category', new_video_category_path %>
+    </thead>
+    <tbody>
+      <% @video_categories.each do |video_category|%>
+        <tr>
+          <td><%= video_category.name %></td>
+          <td>
+            <%= link_to '视频', backend_video_category_videos_path(video_category), class: "btn btn-info"%>
+            <%= link_to '修改', edit_backend_video_category_path(video_category), class: "btn btn-warning"%>
+            <%= link_to '下架', backend_video_category_path(video_category), method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @video_categories %>
+</div>

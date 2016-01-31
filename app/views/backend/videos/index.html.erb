@@ -1,45 +1,29 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Videos</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Album name</th>
-      <th>Pic url</th>
-      <th>Play url</th>
-      <th>Tv</th>
-      <th>Create time</th>
-      <th>Time length</th>
-      <th>Sub title</th>
-      <th>Html5 url</th>
-      <th>Html5 play url</th>
-      <th>Video category</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @videos.each do |video| %>
-      <tr>
-        <td><%= video.album_name %></td>
-        <td><%= video.pic_url %></td>
-        <td><%= video.play_url %></td>
-        <td><%= video.tv_id %></td>
-        <td><%= video.create_time %></td>
-        <td><%= video.time_length %></td>
-        <td><%= video.sub_title %></td>
-        <td><%= video.html5_url %></td>
-        <td><%= video.html5_play_url %></td>
-        <td><%= video.video_category %></td>
-        <td><%= link_to 'Show', video %></td>
-        <td><%= link_to 'Edit', edit_video_path(video) %></td>
-        <td><%= link_to 'Destroy', video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<div class="row">
+  <p id="notice"><%= notice %></p>
+  <h1><%= @video_category.name %></h1>
+</div>
+<div class="row">
+  <%#= link_to '添加', new_backend_video_category_path, class: "btn btn-info" %>
+  <hr>
+  <table class="table table-striped table-bordered table-hover table-condensed">
+    <thead>
+      <tr class="active">
+        <th>Name</th>
+        <th>操作</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Video', new_video_path %>
+    </thead>
+    <tbody>
+      <% @videos.each do |video|%>
+        <tr>
+          <td><%= video.album_name %></td>
+          <td>
+            <%= link_to '详情', backend_video_category_video_path(id: video.id), class: "btn btn-info"%>
+            <%#= link_to '修改', edit_backend_video_category_video_path(id: video.id), class: "btn btn-warning"%>
+            <%= link_to '下架', backend_video_category_video_path(id: video.id), method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @videos %>
+</div>

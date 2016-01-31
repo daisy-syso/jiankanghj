@@ -1,0 +1,28 @@
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">药店管理</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li id="drugstores">
+          <%= link_to '视频分类', backend_video_categories_path %>
+        </li>
+        <% if @current_editor %>
+          <li id="current_editor">
+            <%= link_to session[:editor] %>
+          </li>
+        <% else %>
+          <li id='editor_logout'>
+            <%= link_to '退出', logout_backend_editors_session_index_path %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
