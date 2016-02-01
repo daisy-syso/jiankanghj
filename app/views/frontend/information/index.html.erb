@@ -67,7 +67,10 @@
             </a>
           </li>
 
-          <% if index == 5 && information[:video_category].present? %>
+          <% showVideo1 = (information[:name] == '头条' || information[:name] == '天天护理') &&  index== 7  %>
+          <% showVideo2 = (information[:name] != '头条' && information[:name] != '天天护理') &&  index == 5  %>
+
+          <% if information[:video_category].present? && (showVideo1 || showVideo2) %>
             <ul class="information-items list-unstyled video-items">
               <% Video.where(video_category_id: information[:video_category].id).order("created_at desc").limit(4).each do |video| %>
                 <li class="information-item-with-image video-item">
@@ -102,7 +105,7 @@
     <% end %>
   </ul>
 
-  <h3>健康医疗APP大全</h3>
+  <h3>健康医疗APP大全<a href="javascript:;" class="load-more-app">查看更多app>></a></h3>
   <ul class="hot-apps list-unstyled">
     <% @apps.each do |app| %>
       <li class="hot-app">
