@@ -6,10 +6,13 @@
   .video{
     width: 45%;
     margin: 2%;
+    border: 1px solid #DAD2D2;
+    display: inline-block;
     .video-content{
       img {
         width: 100%;
         height: 140px;
+        padding: 5px;
       }
     }
     // border-bottom: 10px solid #E0D7D7;
