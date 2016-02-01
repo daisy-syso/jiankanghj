@@ -6,6 +6,7 @@
         <div class="video-content">
           <a href="<%= frontend_video_category_video_path(@video_category.id, video.id) %>">
             <img src="<%= video.pic_url %>"  class="information-image" />
+            <%= image_tag("video-flag.jpg", class: "video-flag") %>
           </a>
         </div>
         <div class="video-detail">
