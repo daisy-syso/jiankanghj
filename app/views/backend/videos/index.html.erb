@@ -18,6 +18,10 @@
           <td><%= video.album_name %></td>
           <td>
             <%= link_to '详情', backend_video_category_video_path(id: video.id), class: "btn btn-info"%>
+            <%#= link_to '移动', backend_video_category_video_path(id: video.id), class: "btn btn-info"%>
+            <button type="button" class="btn btn-primary" data-video_id="<%= video.id %>" data-toggle="modal" data-target="#myModal">
+              移动
+            </button>
             <%#= link_to '修改', edit_backend_video_category_video_path(id: video.id), class: "btn btn-warning"%>
             <%= link_to '下架', backend_video_category_video_path(id: video.id), method: :delete, data: { confirm: 'Are you sure?' } , class: "btn btn-danger" %>
           </td>
@@ -27,3 +31,57 @@
   </table>
   <%= paginate @videos %>
 </div>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">选择分类:</label>
+            <select class="form-control" id="video_category">
+              <% @video_categories.each do |vc| %>
+                <option value="<%= vc[0] %>"><%= vc[1] %></option>
+              <% end %>
+            </select>
+            <hidden name="video_id" id="hidden_video_id" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="save">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+  $('#myModal').on('show.bs.modal', function (event) {
+    
+    var button = $(event.relatedTarget);
+    var recipient = button.data('video_id');
+    
+    $('#hidden_video_id').val(recipient);
+  });
+  $('#save').click(function(e){
+
+    var video_category_id = $("#video_category").val();
+    var video_id = $('#hidden_video_id').val();
+
+    $.post("/videos/"+video_id+"/move", 
+      {
+        video_category_id: video_category_id
+      }, function(data){
+        if(data.message == 'ok'){
+          $('#myModal').modal('hide')
+          window.location.href = window.location.href;
+        }
+      });
+  })
+
+</script>

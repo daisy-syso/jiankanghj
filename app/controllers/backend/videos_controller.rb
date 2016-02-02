@@ -5,6 +5,19 @@ class Backend::VideosController < BackendController
   # GET /videos
   def index
     @videos = @video_category.videos.all.order("created_at desc").page(params[:page]).per(params[:per])
+
+    @video_categories = VideoCategory.all.pluck(:id, :name)
+  end
+
+  def move
+    video = Video.find(params[:id])
+    video.video_category_id = params[:video_category_id]
+    
+    if video.save
+      render :json => {
+        message: 'ok'
+      }.to_json
+    end
   end
 
   # GET /videos/1

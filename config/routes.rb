@@ -1,14 +1,17 @@
 Rails.application.routes.draw do
-
   constraints :subdomain => /^(admin(.*))$/i do
     namespace :backend, path: '/' do
       
       root 'video_categories#index'
-
-      # get '/', to: "video_categories#index"
       
       resources :video_categories do
         resources :videos
+      end
+
+      resources :videos do
+        member do
+          post 'move'
+        end
       end
 
       resources :editors_session do
@@ -21,6 +24,7 @@ Rails.application.routes.draw do
       resources :editors
     end
   end
+
   constraints :subdomain => /^(www(.*))$/i do
     namespace :frontend, path: '/' do
       resources :information do
@@ -42,8 +46,8 @@ Rails.application.routes.draw do
           end
         end
       end
-      
-      # get '/', to: "information#index"
+
+      resources :apps
 
       root 'information#index'
 

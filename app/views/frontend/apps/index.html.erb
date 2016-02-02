@@ -1,0 +1,16 @@
+<br/>
+<br/>
+<br/>
+<br/>
+<% @app.each do |app| %>
+  <%= app.name %>
+  <br/>
+  <% AppInformation.where(type_id: app.id).first(10).each do |inf| %>
+    <a href="<%= inf.url %>">
+      <img src="<%= inf.image_url %>" style="width:100px; height: 100px;" />
+      <p class="overflow-text app-name"><%= inf.name %></p>
+    </a>
+  <% end %>
+  <br>
+  <hr/>
+<% end %>
