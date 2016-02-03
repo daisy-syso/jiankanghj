@@ -4,6 +4,9 @@
 </div>
 <div class="row">
   <%#= link_to '添加', new_backend_video_category_path, class: "btn btn-info" %>
+  <form class="form-inline">
+    <input type="text" id="search" placeholder="查询" class="form-control">
+  </form>
   <hr>
   <table class="table table-striped table-bordered table-hover table-condensed">
     <thead>
@@ -61,6 +64,13 @@
 </div><!-- /.modal -->
 
 <script type="text/javascript">
+  $("#search").keyup(function(event){
+    if(event.keyCode == 13){
+      var search = $("#search").val()
+      window.location.href = "/video_categories/<%= @video_category.id %>/videos?search=" + search;
+    }
+  });
+
   $('#myModal').on('show.bs.modal', function (event) {
     
     var button = $(event.relatedTarget);

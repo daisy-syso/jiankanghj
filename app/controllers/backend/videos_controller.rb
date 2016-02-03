@@ -4,7 +4,18 @@ class Backend::VideosController < BackendController
 
   # GET /videos
   def index
-    @videos = @video_category.videos.all.order("created_at desc").page(params[:page]).per(params[:per])
+    search = params[:search]
+    query_head = []
+    query_body = {}
+
+    if search.present?
+      query_head << "album_name like :search"
+      query_body[:search] = "%#{search}%"
+    end
+
+    # @goodfriends = Goodfriend.where(query_head.join(" and "),query_body).order("convert(name using gbk)").page(params[:page])
+
+    @videos = @video_category.videos.where(query_head.join(" and "), query_body).order("created_at desc").page(params[:page]).per(params[:per])
 
     @video_categories = VideoCategory.all.pluck(:id, :name)
   end
