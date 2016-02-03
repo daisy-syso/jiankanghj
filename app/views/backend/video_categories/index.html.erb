@@ -19,7 +19,8 @@
   <table class="table table-striped table-bordered table-hover table-condensed">
     <thead>
       <tr class="active">
-        <th>Name</th>
+        <th>分类名称</th>
+        <th>数量</th>
         <th>操作</th>
       </tr>
     </thead>
@@ -27,6 +28,7 @@
       <% @video_categories.each do |video_category|%>
         <tr>
           <td><%= video_category.name %></td>
+          <td><%= video_category.videos.all.size %></td>
           <td>
             <%= link_to '视频', backend_video_category_videos_path(video_category), class: "btn btn-info"%>
             <%#= link_to '修改', edit_backend_video_category_path(video_category), class: "btn btn-warning"%>
