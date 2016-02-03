@@ -47,7 +47,11 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :apps
+      resources :apps do
+        collection do
+          get 'more_apps'
+        end
+      end
 
       root 'information#index'
 
@@ -63,7 +67,5 @@ Rails.application.routes.draw do
     end
   end
 
-  
-  
   
 end

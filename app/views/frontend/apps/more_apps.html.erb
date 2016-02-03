@@ -1,0 +1,11 @@
+<ul>
+  <% @apps.each do |app| %>
+  <li>
+    <a href="<%= app.url %>">
+      <p class="overflow-text app-name"><%= app.name %></p>
+      <img src="<%= app.image_url %>" style="width:100px; height: 100px;" />
+      <p><%= app.detail %></p>
+    </a>
+  </li>
+  <% end %>
+</ul>

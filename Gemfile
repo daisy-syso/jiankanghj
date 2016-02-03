@@ -56,6 +56,12 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
+
+  gem 'bullet'
+
+  gem 'quiet_assets'
+
+  gem "uniform_notifier"
 end
 
 group :development do
