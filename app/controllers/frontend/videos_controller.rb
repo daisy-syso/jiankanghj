@@ -3,11 +3,11 @@ class Frontend::VideosController < FrontendController
   before_action :set_video, only: [:show]
   
   def index
-    @videos = @video_category.videos.where.not(swf: nil).order("created_at desc").page(params[:page]).per(8)
+    @videos = @video_category.videos.where.not(swf: nil).order("create_time desc").page(params[:page]).per(8)
   end
 
   def more_videos
-    videos = @video_category.videos.where.not(swf: nil).order("created_at desc").page(params[:page]).per(8)
+    videos = @video_category.videos.where.not(swf: nil).order("create_time desc").page(params[:page]).per(8)
 
     tmp = ""
 

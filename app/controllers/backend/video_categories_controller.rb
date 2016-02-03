@@ -4,7 +4,7 @@ class Backend::VideoCategoriesController < BackendController
 
   # GET /video_categories
   def index
-    @video_categories = VideoCategory.all.order("create_time desc").page(params[:page]).per(params[:per])
+    @video_categories = VideoCategory.all.order("created_at desc").page(params[:page]).per(params[:per])
   end
 
   # GET /video_categories/new
