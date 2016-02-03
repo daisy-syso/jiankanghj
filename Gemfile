@@ -44,10 +44,14 @@ gem 'thin'
 gem 'sidekiq'
 gem 'sinatra', require: false
 
-gem 'whenever', :require => false
+gem 'whenever', require: false
 
 gem 'faraday'
 gem 'typhoeus', require: 'typhoeus/adapters/faraday'
+
+gem 'qiniu'
+gem 'carrierwave'
+gem 'carrierwave-qiniu'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

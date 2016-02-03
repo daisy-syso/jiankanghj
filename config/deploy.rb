@@ -1,6 +1,7 @@
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
+require 'mina/whenever'
 require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
 set :domain, '61.153.100.122'
@@ -60,7 +61,7 @@ task :deploy => :environment do
     to :launch do
       queue "bundle exec thin stop"
       queue "bundle exec thin start -p 5000 -e production -d"
-      # queue "whenever -w"
+      invoke :'whenever:update'
     end
   end
 end
