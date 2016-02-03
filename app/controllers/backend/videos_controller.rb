@@ -15,7 +15,7 @@ class Backend::VideosController < BackendController
 
     # @goodfriends = Goodfriend.where(query_head.join(" and "),query_body).order("convert(name using gbk)").page(params[:page])
 
-    @videos = @video_category.videos.where(query_head.join(" and "), query_body).order("created_at desc").page(params[:page]).per(params[:per])
+    @videos = @video_category.videos.where(query_head.join(" and "), query_body).order("create_time desc").page(params[:page]).per(params[:per])
 
     @video_categories = VideoCategory.all.pluck(:id, :name)
   end
