@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  
+  mount API, at: '/api'
+  mount GrapeSwaggerRails::Engine => '/swagger'
+
   constraints :subdomain => /^(admin(.*))$/i do
     namespace :backend, path: '/' do
       
