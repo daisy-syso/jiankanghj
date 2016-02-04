@@ -24,60 +24,65 @@ namespace :videos do
 
       data.each do |video|
         if video["threeCtgs"].present?
-          video_category = data.last["threeCtgs"].first["name"]
-          video_category = VideoCategory.where(name: video_category).first
-          if video_category.present?
-            begin
-              video_old = Video.where(album_name: video["albumName"]).first
-              unless video_old
+          begin
+            video_category = data.last["threeCtgs"].first["name"]
+            video_category = VideoCategory.where(name: video_category).first
+            if video_category.present?
+              begin
+                video_old = Video.where(album_name: video["albumName"]).first
+                unless video_old
 
-                uuid = SecureRandom.uuid
-                path = File.join('/tmp', 'tmp.jpg')
+                  uuid = SecureRandom.uuid
+                  path = File.join('/tmp', 'tmp.jpg')
 
-                if video["picUrl"].present?
-                  File.open(path, "wb") { |f| f.write(URI.parse(video["picUrl"]).read) }
+                  if video["picUrl"].present?
+                    File.open(path, "wb") { |f| f.write(URI.parse(video["picUrl"]).read) }
+                  end
+
+                  # uurl = "http://expand.video.iqiyi.com/api/fb?apiKey=eefa2897acae4ebf998c6695740a954c&rec=0&playurl=#{video["playUrl"]}"
+                  uurl = "http://expand.video.iqiyi.com/api/video/info.json?apiKey=eefa2897acae4ebf998c6695740a954c&tvId=#{video["tvIds"].first}"
+
+
+                  conn = Faraday.new(:url => uurl) do |faraday|
+                    faraday.request  :url_encoded
+                    faraday.response :logger
+                    faraday.adapter  Faraday.default_adapter
+                  end
+
+                  response = conn.get
+                  response.body
+                  data2 = Oj.load(response.body)["data"]
+
+                  swf = data2["commonSwf"]
+
+                  a,b,c = Qiniu::Storage.upload_with_put_policy(
+                    $put_policy,     # 上传策略
+                    path,     # 本地文件名
+                    uuid,            # 最终资源名，可省略，缺省为上传策略 scope 字段中指定的Key值
+                  )
+
+                  Video.find_or_create_by(
+                    album_name: video["albumName"],
+                    pic_url: "http://7d9otw.com1.z0.glb.clouddn.com/#{uuid}",
+                    play_url: video["playUrl"],
+                    tv_id: video["tvIds"].first,
+                    swf: swf,
+                    create_time: video["createdTime"],
+                    time_length: video["timeLength"],
+                    sub_title: video["subTitle"],
+                    html5_url: video["html5Url"],
+                    html5_play_url: video["html5PlayUrl"],
+                    video_category_id: video_category.id
+                  )
                 end
-
-                # uurl = "http://expand.video.iqiyi.com/api/fb?apiKey=eefa2897acae4ebf998c6695740a954c&rec=0&playurl=#{video["playUrl"]}"
-                uurl = "http://expand.video.iqiyi.com/api/video/info.json?apiKey=eefa2897acae4ebf998c6695740a954c&tvId=#{video["tvIds"].first}"
-
-
-                conn = Faraday.new(:url => uurl) do |faraday|
-                  faraday.request  :url_encoded
-                  faraday.response :logger
-                  faraday.adapter  Faraday.default_adapter
-                end
-
-                response = conn.get
-                response.body
-                data2 = Oj.load(response.body)["data"]
-
-                swf = data2["commonSwf"]
-
-                a,b,c = Qiniu::Storage.upload_with_put_policy(
-                  $put_policy,     # 上传策略
-                  path,     # 本地文件名
-                  uuid,            # 最终资源名，可省略，缺省为上传策略 scope 字段中指定的Key值
-                )
-
-                Video.find_or_create_by(
-                  album_name: video["albumName"],
-                  pic_url: "http://7d9otw.com1.z0.glb.clouddn.com/#{uuid}",
-                  play_url: video["playUrl"],
-                  tv_id: video["tvIds"].first,
-                  swf: swf,
-                  create_time: video["createdTime"],
-                  time_length: video["timeLength"],
-                  sub_title: video["subTitle"],
-                  html5_url: video["html5Url"],
-                  html5_play_url: video["html5PlayUrl"],
-                  video_category_id: video_category.id
-                )
+              rescue Exception => e
+                puts e
               end
-            rescue Exception => e
-              puts e
             end
+          rescue Exception => e
+            puts e
           end
+          
         end
       end
     end
