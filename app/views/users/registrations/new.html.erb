@@ -9,8 +9,10 @@
     </div>
 
     <div class="form-actions pull-right">
-      <%= f.button :submit, "Sign up", class: 'btn btn-primary btn-lg' %>
-      <%= render "users/shared/links" %>
+      <%= f.button :submit, "注册", class: 'btn btn-primary' %>
+      <%- if controller_name != 'sessions' %>
+        <%= link_to "登录", new_session_path(resource_name), class: 'btn btn-success' %><br />
+      <% end -%>
     </div>
   <% end %>
 
