@@ -25,7 +25,8 @@
     <span id="qqLoginBtn">
       <%= image_tag("Connect_logo_3.png") %>
     </span>
-    <a class='btn btn-primary'>微博登录</a>
+    <div id="wb_connect_btn"></div>
+    <!-- <wb:share-button type="button" size="middle"> </wb:share-button> -->
   </div>
 </div>
 
@@ -39,4 +40,25 @@
    }, function(opts){//注销成功
     debugger
    });
+</script>
+
+<!-- <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=6634719" type="text/javascript" charset="utf-8"></script> -->
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=6634719&debug=true" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+  WB2.anyWhere(function (W) {
+    W.widget.connectButton({
+        id: "wb_connect_btn",
+        type: '3,2',
+        callback: {
+          login: function (o) { //登录后的回调函数
+              alert("login: " + o.screen_name)
+          },
+          logout: function () { //退出后的回调函数
+              alert('logout');
+          }
+        }
+    });
+});
 </script>

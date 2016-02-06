@@ -44,8 +44,15 @@ class Frontend::InformationController < FrontendController
       end
       info_sql = top_infors + " union " + select_infos + " order by str_to_date(created_at,'%Y-%m-%d %H:%i:%s') desc limit #{pageset} offset #{((params[:page] || 1).to_i - 1) * pageset})"
 
+    
+
+
       # Information.where().order("created_at desc").page(params[:page]).per(per)
-      it.latest_informations = Information.unscope(:where).find_by_sql(info_sql)
+      it.latest_informations = 
+        Rails.cache.fetch("#{it.name}/#{it.id}/information_cache", expires_in: 10.minutes) do
+          Information.unscope(:where).find_by_sql(info_sql)
+        end
+        
 
       video_category2 = case it.name
       when '头条'
