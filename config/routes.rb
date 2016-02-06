@@ -3,33 +3,33 @@ Rails.application.routes.draw do
   mount API, at: '/api'
   mount GrapeSwaggerRails::Engine => '/swagger'
 
-  # constraints :subdomain => /^(admin(.*))$/i do
-    # namespace :backend, path: '/' do
+  constraints :subdomain => /^(admin(.*))$/i do
+    namespace :backend, path: '/' do
       
-    #   root 'video_categories#index'
+      root 'video_categories#index'
       
-    #   resources :video_categories do
-    #     resources :videos
-    #   end
+      resources :video_categories do
+        resources :videos
+      end
 
-    #   resources :videos do
-    #     member do
-    #       post 'move'
-    #     end
-    #   end
+      resources :videos do
+        member do
+          post 'move'
+        end
+      end
 
-    #   resources :editors_session do
-    #     collection do
-    #       get 'login'
-    #       get 'logout'
-    #     end
-    #   end
+      resources :editors_session do
+        collection do
+          get 'login'
+          get 'logout'
+        end
+      end
 
-    #   resources :editors
-    # end
-  # end
+      resources :editors
+    end
+  end
 
-  # constraints :subdomain => /^(www(.*))$/i do
+  constraints :subdomain => /^(www(.*))$/i do
     namespace :frontend, path: '/' do
       resources :information do
         collection do
@@ -69,7 +69,7 @@ Rails.application.routes.draw do
       devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations", passwords: "users/passwords", confirmations: "users/confirmations" }
 
     end
-  # end
+  end
 
   
 end
