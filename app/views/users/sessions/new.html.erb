@@ -23,26 +23,22 @@
     其他账号登录
     <br />
     <span id="qqLoginBtn">
-      <%= image_tag("Connect_logo_3.png") %>
+      <%#= image_tag("Connect_logo_3.png") %>
     </span>
     <div id="wb_connect_btn"></div>
     <!-- <wb:share-button type="button" size="middle"> </wb:share-button> -->
   </div>
 </div>
 
-
-
 <script type="text/javascript">
     QC.Login({
        btnId:"qqLoginBtn"    //插入按钮的节点id
     }, function(reqData, opts){//登录成功
-       debugger
+       console.log('login success !!!!')
    }, function(opts){//注销成功
-    debugger
+    console.log('logout success !!!!')
    });
 </script>
-
-
 
 <script type="text/javascript">
   WB2.anyWhere(function (W) {
