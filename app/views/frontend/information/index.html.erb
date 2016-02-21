@@ -45,9 +45,6 @@
           <% information[:sub_types].each do |sub_type| %>
             <li class="sub-type" data-name="<%= sub_type.name %>"> <%= sub_type.name %></li>
           <% end %>
-          <% if information[:video_category].present? %>
-            <a href="<%= frontend_video_category_videos_path(information[:video_category].id) %>">视频</a>
-          <% end %>
         </ul>
       </div>
       <br>
@@ -66,24 +63,6 @@
               <% end %>
             </a>
           </li>
-
-          <% showVideo1 = (information[:name] == '头条' || information[:name] == '天天护理') &&  index== 7  %>
-          <% showVideo2 = (information[:name] != '头条' && information[:name] != '天天护理') &&  index == 5  %>
-
-          <% if information[:video_category].present? && (showVideo1 || showVideo2) %>
-            <ul class="information-items list-unstyled video-items">
-              <% Video.where(video_category_id: information[:video_category].id).order("created_at desc").limit(4).each do |video| %>
-                <li class="information-item-with-image video-item">
-                  <a href="<%= frontend_video_category_video_path(information[:video_category].id, video.id) %>">
-                    <img src="<%= video.pic_url %>"  class="information-image" />
-                    <%= image_tag("video-flag.jpg", class: "video-flag") %>
-                    <p class="information-name"><%= video.album_name %></p>
-                  </a>
-                </li>
-              <% end %>
-            </ul>
-          <% end %>
-
         <% end %>
       </ul>
       <div class="load-more">
@@ -111,6 +90,15 @@
       <li class="hot-app">
         <img src="<%= app.image_url %>">
         <p class="overflow-text app-name"><%= app.name %></p>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2>健康视频</h2>
+  <ul class="information-hotest-images list-unstyled">
+    <% @video_categories.each do |video_category| %>
+      <li class="information-hotest-image-item">
+        <a href="<%= frontend_video_category_videos_path(video_category.id) %>"><%= video_category.name %></a>
       </li>
     <% end %>
   </ul>
