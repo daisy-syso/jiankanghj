@@ -51,16 +51,10 @@
 
       <ul class="information-items list-unstyled">
         <% information[:informations].each_with_index do |inf, index| %>
-          <%# condition = (index == 0 || index == 1) || ((index == 7 || index == 6) && (information[:name] == '头条' || information[:name] == '天天护理')) %>
-          <% condition = (index == 0 || index == 1) %>
-          <li class="information-item<%= '-with-image' if condition  %>">
+          <li class="information-item">
             <a href="<%= frontend_information_path(inf.id) %>">
-              <% if condition %>
-                <img src="<%= inf.image_url %>" class="information-image"/>
-                <p class="information-name"><%= inf.name %></p>
-              <% else %>
-                <%= inf.name %>
-              <% end %>
+              <img src="<%= inf.image_url %>" class="information-image"/>
+              <p class="information-name"><%= inf.name %></p>
             </a>
           </li>
         <% end %>
@@ -120,12 +114,12 @@
   </div>
 </div>
 
-
 <script type="text/template" id="information_item">
   {{ _.each(infors, function(item, key, arr) { }}
     <li class="information-item">
       <a href="/information/{{= item.id }}">
-        {{= item.name }}
+        <img src="{{= item.image_url }}" class="information-image"/>
+        <p class="information-name">{{= item.name }}</p>
       </a>
     </li>
   {{ }); }}

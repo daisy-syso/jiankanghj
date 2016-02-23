@@ -10,9 +10,18 @@ changeSubType = ->
     # get the data
     $.ajax
       method: 'GET',
-      url: "information/more_information?type=#{subTypeName}",
+      url: "information/more_information?name=#{subTypeName}",
       success: (data) =>
         infors = data.data
+        htmlList = ""
+        _.templateSettings = {
+          interpolate: /\{\{\=(.+?)\}\}/g,
+          evaluate: /\{\{(.+?)\}\}/g
+        }
+        template = _.template($("#information_item").html())
+        htmlfrag = template({infors: infors})
+
+        $(this).parents(".infor-module").find(".information-items").html(htmlfrag)
 
 loadMore = ->
   $(".load-more a").on "click", () ->
@@ -33,7 +42,7 @@ loadMore = ->
         template = _.template($("#information_item").html())
         htmlfrag = template({infors: infors})
 
-        $(this).parents(".infor-module").find(".information-items li:last").append(htmlfrag)
+        $(this).parents(".infor-module").find(".information-items li:last").after(htmlfrag)
 
 ready = () ->
   changeSubType()
