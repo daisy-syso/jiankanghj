@@ -90,6 +90,17 @@
       }
     }
   }
+  .information-hotest-images{
+    .information-hotest-image-item{
+      width: 49%;
+      display: inline-block;
+      margin-bottom: 10px;
+      img {
+        width: 100%;
+        max-height: 120px;
+      }
+    }
+  }
   .last-section{
     margin-bottom: 100px;
   }
