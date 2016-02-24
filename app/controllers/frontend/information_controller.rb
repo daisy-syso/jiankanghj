@@ -49,7 +49,11 @@ class Frontend::InformationController < FrontendController
           Information.unscope(:where).find_by_sql(info_sql)
         end
       
-      @video_categories = VideoCategory.all
+      # @video_categories = VideoCategory.all
+
+      @show_video_categories = VideoCategory.where(name: %w(医疗 美容 健身 养生))
+
+      @hide_video_categories = VideoCategory.where.not(name: %w(医疗 美容 健身 养生))
 
       types_image = case it.name
       when '头条'

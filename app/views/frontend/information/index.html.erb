@@ -90,7 +90,20 @@
 
   <h2>健康视频</h2>
   <ul class="information-hotest-images list-unstyled">
-    <% @video_categories.each do |video_category| %>
+    <% @show_video_categories.each do |video_category| %>
+      <%= video_category.name %>| <a href="<%= frontend_video_category_videos_path(video_category.id) %>">更多</a>
+      <% video_category.videos.order("created_at desc").limit(2).each do |video| %>
+        <li class="information-item-with-image video-item">
+          <a href="<%= frontend_video_category_video_path(video_category.id, video.id) %>">
+            <img src="<%= video.pic_url %>" class="information-image" />
+            <%= image_tag("video-flag.jpg", class: "video-flag") %>
+            <p class="information-name"><%= video.album_name %></p>
+          </a>
+        </li>
+      <% end %>
+    <% end %>
+
+    <% @hide_video_categories.each do |video_category| %>
       <li class="information-hotest-image-item">
         <a href="<%= frontend_video_category_videos_path(video_category.id) %>"><%= video_category.name %></a>
       </li>
